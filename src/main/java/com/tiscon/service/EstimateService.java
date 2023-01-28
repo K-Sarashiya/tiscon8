@@ -69,8 +69,25 @@ public class EstimateService {
      * @param dto 見積もり依頼情報
      * @return 概算見積もり結果の料金
      */
-    public Integer getPrice(UserOrderDto dto) {
+    public double getPrice(UserOrderDto dto) {
         double distance = estimateDAO.getDistance(dto.getOldPrefectureId(), dto.getNewPrefectureId());
+
+        // お届け月を取得し、3~4月なら1.5倍、9月なら1.2倍、それ以外なら１倍
+        String monthId = dto.getMonthId();
+        int month = Integer.parseInt(monthId);
+        double N;
+        if(month==3 || month==4){
+            N = 1.5;
+        }else if(month==9){
+            N = 1.2;
+        }else{
+            N = 1;
+        }
+        /*debug 
+            System.out.println(monthId);
+        */
+       
+
         // 小数点以下を切り捨てる
         int distanceInt = (int) Math.floor(distance);
 
@@ -92,7 +109,10 @@ public class EstimateService {
             priceForOptionalService = estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
         }
 
-        return priceForDistance + pricePerTruck + priceForOptionalService;
+        double a = (double)priceForDistance;
+        double b = (double)pricePerTruck;
+        double c = (double)priceForOptionalService;
+        return (a + b) * N + c;
     }
 
     /**
