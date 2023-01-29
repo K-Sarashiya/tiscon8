@@ -21,6 +21,12 @@
     <div class="col-sm-12">
       <div class="text-center">
         <div class="primary-text"><span th:text="${price}"></span>円</div>
+        <!--<span th:text="${price2}"></span>円 -->
+        <!--
+          距離料金：　円
+          トラック輸送費：　円
+          オプション代金：　円
+        -->
         <button type="submit" name="complete" class="btn btn-primary">詳細見積もり依頼へ</button>
       </div>
       <div class="sub-title">お客様情報</div>
@@ -62,11 +68,11 @@
           </td>
           <input type="hidden" name="oldPrefectureId" id="oldPrefectureId" th:value="*{oldPrefectureId}"/>
         </tr>
-        <tr>
+        <!--<tr>
           <th>転居元住所（市区町村以下）</th>
           <td><span th:text="*{oldAddress}"></span></td>
           <input type="hidden" name="oldAddress" id="oldAddress" th:value="*{oldAddress}"/>
-        </tr>
+        </tr>-->
         <tr>
           <th>転居先住所（都道府県）</th>
           <td>
@@ -74,11 +80,11 @@
           </td>
           <input type="hidden" name="newPrefectureId" id="newPrefectureId" th:value="*{newPrefectureId}"/>
         </tr>
-        <tr>
+        <!--<tr>
           <th>転居先住所（市区町村以下）</th>
           <td><span th:text="*{newAddress}"></span></td>
           <input type="hidden" name="newAddress" id="newAddress" th:value="*{newAddress}"/>
-        </tr>
+        </tr>-->
         </tbody>
       </table>
       <div class="sub-title">お荷物情報</div>
@@ -115,7 +121,9 @@
       </table>
       <div class="form-group">
         <div class="text-center">
-          <button type="submit" name="backToConfirm" class="btn-back">TOPへ戻る</button>
+          <button type="submit" name="backToInputFromResult" class="btn-back">入力画面へ戻る</button>
+         
+          <a class="btn btn-back" href="/" role="button">TOPへ戻る</a>
         </div>
       </div>
     </div>
