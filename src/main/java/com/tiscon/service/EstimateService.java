@@ -69,7 +69,7 @@ public class EstimateService {
      * @param dto 見積もり依頼情報
      * @return 概算見積もり結果の料金
      */
-    public double getPrice(UserOrderDto dto) {
+    public int getPrice(UserOrderDto dto) {
         double distance = estimateDAO.getDistance(dto.getOldPrefectureId(), dto.getNewPrefectureId());
 
         // お届け月を取得し、3~4月なら1.5倍、9月なら1.2倍、それ以外なら１倍
@@ -94,10 +94,18 @@ public class EstimateService {
         // 距離当たりの料金を算出する
         int priceForDistance = distanceInt * PRICE_PER_DISTANCE;
 
+
         int boxes = getBoxForPackage(dto.getBox(), PackageType.BOX)
                 + getBoxForPackage(dto.getBed(), PackageType.BED)
                 + getBoxForPackage(dto.getBicycle(), PackageType.BICYCLE)
                 + getBoxForPackage(dto.getWashingMachine(), PackageType.WASHING_MACHINE);
+           
+                if (boxes>200){
+                    return  0;
+                }      
+        
+
+
 
         // 箱に応じてトラックの種類が変わり、それに応じて料金が変わるためトラック料金を算出する。
         int pricePerTruck = estimateDAO.getPricePerTruck(boxes);
@@ -112,7 +120,10 @@ public class EstimateService {
         double a = (double)priceForDistance;
         double b = (double)pricePerTruck;
         double c = (double)priceForOptionalService;
-        return (a + b) * N + c;
+        int price = (int) Math.floor((a + b) * N + c);
+
+
+        return price;
     }
 
     /**

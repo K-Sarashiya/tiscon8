@@ -95,6 +95,16 @@ body {
     font-family: "Roboto";
 }
 
+.bug-title {
+    margin: 48px 0px 32px;
+    color:  #BC412E;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    font-family: "Roboto";
+}
+
 .box-text {
     display:inline-block;
     width: 250px;
