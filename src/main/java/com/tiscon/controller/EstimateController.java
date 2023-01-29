@@ -135,6 +135,7 @@ public class EstimateController {
         int price = estimateService.getPrice(dto);
 
         if (price == 0) {
+            model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
             String limit = "お荷物上限がこえています";
             model.addAttribute("limit", limit);
             return "input";
